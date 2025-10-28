@@ -8,8 +8,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: theme('colors.offwhite');
-  background-color: theme('colors.dark');
+  color: #F9FAFB;
+  background-color: #0F0F10;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -40,14 +40,18 @@ h2 {
 }
 
 button {
-  @apply bg-primary text-white rounded-xl px-4 py-2 font-semibold shadow-glow hover:shadow-[0_0_15px_theme('colors.accent')] transition-all duration-300;
+  @apply bg-primary text-white rounded-xl px-4 py-2 font-semibold shadow-glow transition-all duration-300;
   border: 1px solid transparent;
   cursor: pointer;
 }
 
+button:hover {
+  box-shadow: 0 0 15px #00C4FF; /* use your accent color directly */
+}
+
 button:focus,
 button:focus-visible {
-  outline: 4px auto theme('colors.accent');
+  outline: 4px auto #00C4FF; /* use raw hex or rgba */
 }
 
 @media (prefers-color-scheme: light) {
