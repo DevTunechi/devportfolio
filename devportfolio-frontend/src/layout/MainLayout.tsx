@@ -1,7 +1,12 @@
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
-import HeroSection from "../sections/HeroSection";
 import Navbar from "../components/Navbar";
+import FooterSection from "../components/FooterSection";
+import HeroSection from "../sections/HeroSection";
+import FeatureHighlights from "../sections/FeatureHighlights";
+import HowItWorks from "../sections/HowItWorks";
+import PricingSection from "../sections/PricingSection";
+import TestimonialsSection from "../sections/TestimonialsSection";
 
 type Props = {
   children?: ReactNode;
@@ -10,7 +15,6 @@ type Props = {
 export default function MainLayout({ children }: Props) {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-dark via-[#111] to-dark text-white">
-      {/* Navbar */}
       <Navbar />
 
       <nav className="w-full px-8 py-4 flex justify-between items-center border-b border-primary/30">
@@ -23,6 +27,10 @@ export default function MainLayout({ children }: Props) {
       </nav>
 
       <HeroSection />
+      <FeatureHighlights />
+      <HowItWorks />
+      <PricingSection />
+      <TestimonialsSection />
 
       <motion.main
         className="flex-1"
@@ -32,6 +40,8 @@ export default function MainLayout({ children }: Props) {
       >
         {children}
       </motion.main>
+
+      <FooterSection />
     </div>
   );
 }
