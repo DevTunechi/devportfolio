@@ -1,12 +1,57 @@
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
+const Particle = ({ delay }: { delay: number }) => (
+  <motion.div
+    className="absolute w-2 h-2 bg-cyan-400 rounded-full shadow-lg"
+    style={{
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      opacity: 0.6,
+    }}
+    animate={{
+      y: [0, -20, 0],
+      x: [0, 10, 0],
+      opacity: [0.4, 1, 0.4],
+    }}
+    transition={{
+      duration: 5 + Math.random() * 3,
+      delay,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+  />
+);
+
 const HeroSection = () => {
+  const [soundOn, setSoundOn] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      if (soundOn) {
+        audioRef.current.volume = 0.2;
+        audioRef.current.play().catch(() => {});
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  }, [soundOn]);
+
   return (
     <section
       id="home"
       className="min-h-screen flex flex-col justify-center items-center text-center relative overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black text-white px-6"
     >
-      {/* Background gradient orbs */}
+      <audio ref={audioRef} loop src="/sounds/ambient-hum.mp3" />
+      <motion.button
+        onClick={() => setSoundOn(!soundOn)}
+        className="absolute top-6 right-6 text-cyan-400 hover:text-purple-400 transition-all z-50 text-sm uppercase"
+        whileHover={{ scale: 1.1 }}
+      >
+        {soundOn ? "Mute" : "Unmute"}
+      </motion.button>
+
       <motion.div
         className="absolute -top-32 -left-32 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl"
         animate={{ y: [0, 30, 0], x: [0, 15, 0] }}
@@ -17,21 +62,20 @@ const HeroSection = () => {
         animate={{ y: [0, -30, 0], x: [0, -15, 0] }}
         transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
       />
-
-      {/* Animated headline */}
+      {[...Array(15)].map((_, i) => (
+        <Particle key={i} delay={i * 0.3} />
+      ))}
       <motion.h1
-        className="text-5xl md:text-6xl font-extrabold leading-tight"
+        className="text-5xl md:text-6xl font-extrabold leading-tight z-10"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, type: 'spring', stiffness: 80 }}
+        transition={{ duration: 1, type: "spring", stiffness: 80 }}
       >
         Build Your <span className="text-cyan-400">AI-Powered</span> <br />
         <span className="text-purple-400">GitHub Portfolio</span>
       </motion.h1>
-
-      {/* Subtext */}
       <motion.p
-        className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl"
+        className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl z-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 1 }}
@@ -39,10 +83,8 @@ const HeroSection = () => {
         Instantly generate a personalized portfolio with AI — no design skills needed.  
         Just connect your GitHub, describe your dream style, and watch it come alive.
       </motion.p>
-
-      {/* Buttons */}
       <motion.div
-        className="mt-10 flex gap-6 flex-wrap justify-center"
+        className="mt-10 flex gap-6 flex-wrap justify-center z-10"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.8 }}
