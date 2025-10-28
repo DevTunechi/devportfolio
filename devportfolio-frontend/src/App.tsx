@@ -1,35 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import MainLayout from "./layout/MainLayout";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+    <MainLayout>
+      <section className="flex flex-col items-center justify-center text-center py-24 space-y-6">
+        <h1 className="font-heading text-5xl md:text-6xl font-bold text-primary drop-shadow-glow">
+          Welcome to <span className="text-accent">DevPortfolio</span>
+        </h1>
+        <p className="max-w-2xl text-lg text-offwhite/80 leading-relaxed">
+          Build your AI-powered portfolio straight from your GitHub — no code,
+          no design, just creativity.
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+        <button className="px-6 py-3 text-lg">Login with GitHub</button>
+      </section>
+    </MainLayout>
+  );
 }
 
-export default App
+export default App;
