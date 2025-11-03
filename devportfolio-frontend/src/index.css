@@ -46,12 +46,12 @@ button {
 }
 
 button:hover {
-  box-shadow: 0 0 15px #00C4FF; /* use your accent color directly */
+  box-shadow: 0 0 15px #00C4FF;
 }
 
 button:focus,
 button:focus-visible {
-  outline: 4px auto #00C4FF; /* use raw hex or rgba */
+  outline: 4px auto #00C4FF;
 }
 
 @media (prefers-color-scheme: light) {
