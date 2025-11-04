@@ -54,7 +54,7 @@ button:focus-visible {
   outline: 4px auto #00C4FF;
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
     color: #213547;
     background-color: #ffffff;
