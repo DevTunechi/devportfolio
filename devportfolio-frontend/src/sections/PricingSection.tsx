@@ -1,32 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
-const plans = {
-  USD: [
-    { name: "Free", price: "$0", features: ["Basic portfolio", "Limited customization"], stripeId: "price_usd_free" },
-    { name: "Pro", price: "$9", features: ["AI layout", "Live preview", "Download ZIP"], stripeId: "price_usd_pro" },
-    { name: "Premium", price: "$19", features: ["Hosting", "Custom domain", "Priority support"], stripeId: "price_usd_premium" },
-  ],
-  EUR: [
-    { name: "Free", price: "€0", features: ["Basic portfolio", "Limited customization"], stripeId: "price_eur_free" },
-    { name: "Pro", price: "€8", features: ["AI layout", "Live preview", "Download ZIP"], stripeId: "price_eur_pro" },
-    { name: "Premium", price: "€17", features: ["Hosting", "Custom domain", "Priority support"], stripeId: "price_eur_premium" },
-  ],
-  GBP: [
-    { name: "Free", price: "£0", features: ["Basic portfolio", "Limited customization"], stripeId: "price_gbp_free" },
-    { name: "Pro", price: "£7", features: ["AI layout", "Live preview", "Download ZIP"], stripeId: "price_gbp_pro" },
-    { name: "Premium", price: "£15", features: ["Hosting", "Custom domain", "Priority support"], stripeId: "price_gbp_premium" },
-  ],
-  NGN: [
-    { name: "Free", price: "₦0", features: ["Basic portfolio", "Limited customization"], stripeId: "price_ngn_free" },
-    { name: "Pro", price: "₦7000", features: ["AI layout", "Live preview", "Download ZIP"], stripeId: "price_ngn_pro" },
-    { name: "Premium", price: "₦15000", features: ["Hosting", "Custom domain", "Priority support"], stripeId: "price_ngn_premium" },
-  ],
-};
+const features = [
+  { icon: "💎", title: "AI Portfolio Builder", description: "Generate your entire portfolio with one click." },
+  { icon: "⚙️", title: "Full Customization", description: "Edit layouts, colors, and styles effortlessly." },
+  { icon: "🚀", title: "Instant Hosting", description: "Host your portfolio instantly with a single tap." },
+];
 
 const PricingSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [currency, setCurrency] = useState<keyof typeof plans>("USD");
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -44,67 +26,50 @@ const PricingSection = () => {
     <section
       id="pricing"
       ref={sectionRef}
-      className="py-20 px-6 bg-gradient-to-b from-[#0a0a0a] via-[#111] to-[#0a0a0a] text-white transition-transform duration-300"
+      className="relative py-24 px-6 bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#050505] text-white overflow-hidden"
     >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.1)_0%,transparent_70%)] blur-3xl opacity-20"></div>
+
       <motion.h2
-        className="text-3xl md:text-4xl font-bold text-center mb-6"
+        className="text-3xl md:text-4xl font-bold text-center mb-8"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
-        Pricing Plans
+        100% Free to Use
       </motion.h2>
 
-      <motion.div
-        className="flex justify-center gap-4 mb-12 flex-wrap"
+      <motion.p
+        className="text-center text-gray-400 max-w-2xl mx-auto mb-16"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ delay: 0.3, duration: 0.6 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
       >
-        {Object.keys(plans).map((cur) => (
-          <button
-            key={cur}
-            onClick={() => setCurrency(cur as keyof typeof plans)}
-            className={`px-4 py-2 rounded-full font-semibold border ${
-              currency === cur ? "bg-purple-500 text-white" : "border-gray-500 text-gray-300"
-            } transition`}
-          >
-            {cur}
-          </button>
-        ))}
-      </motion.div>
+        DevPortfolio is completely free — no subscriptions, no payments, no hidden costs.
+        Just log in, build your AI-powered portfolio, and launch it effortlessly.
+      </motion.p>
 
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+        className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ delay: 0.5, duration: 0.8 }}
       >
-        {plans[currency].map((plan, index) => (
+        {features.map((feature, index) => (
           <motion.div
             key={index}
             whileHover={{ scale: 1.05 }}
-            className="bg-[#1a1a1a] border border-purple-500/30 rounded-xl p-6 shadow-md hover:shadow-purple-500/30 transition-all"
+            transition={{ type: "spring", stiffness: 200, damping: 15 }}
+            className={`relative rounded-2xl p-[2px] bg-gradient-to-br from-purple-500/50 via-cyan-500/40 to-transparent shadow-[0_0_20px_-5px_rgba(139,92,246,0.4)]`}
           >
-            <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
-            <p className="text-2xl font-semibold text-purple-400 mb-4">{plan.price}</p>
-            <ul className="text-sm text-gray-400 mb-6 space-y-2">
-              {plan.features.map((feature, i) => (
-                <li key={i}>• {feature}</li>
-              ))}
-            </ul>
-            <button
-              className="w-full py-2 rounded-full bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold shadow-md"
-              onClick={() => {
-                // Stripe checkout logic goes here
-                console.log("Redirect to Stripe:", plan.stripeId);
-              }}
-            >
-              {plan.name === "Free" ? "Get Started" : "Subscribe"}
-            </button>
+            <div className="bg-[#111] rounded-2xl p-8 h-full transition-all duration-500 hover:bg-[#181818] hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.1)]">
+              <div className="text-4xl mb-3">{feature.icon}</div>
+              <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
+            </div>
           </motion.div>
         ))}
       </motion.div>
