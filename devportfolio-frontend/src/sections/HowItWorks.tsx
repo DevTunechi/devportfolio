@@ -6,29 +6,25 @@ const steps = [
     icon: "🔐",
     title: "Login with GitHub",
     description: "Securely connect your GitHub to begin building your portfolio.",
-    border: "border-cyan-500/30",
-    glow: "hover:shadow-cyan-500/30",
+    color: "cyan",
   },
   {
     icon: "🤖",
     title: "AI Analysis",
     description: "We analyze your repositories and generate content and layout ideas.",
-    border: "border-purple-500/30",
-    glow: "hover:shadow-purple-500/30",
+    color: "purple",
   },
   {
     icon: "🧩",
     title: "Preview & Customize",
     description: "See your portfolio live and tweak sections to match your style.",
-    border: "border-blue-500/30",
-    glow: "hover:shadow-blue-500/30",
+    color: "blue",
   },
   {
     icon: "🚀",
     title: "Export or Host",
     description: "Download your portfolio or host it instantly with DevPortfolio.",
-    border: "border-green-500/30",
-    glow: "hover:shadow-green-500/30",
+    color: "green",
   },
 ];
 
@@ -51,10 +47,12 @@ const HowItWorks = () => {
     <section
       id="workflow"
       ref={sectionRef}
-      className="py-20 px-6 bg-gradient-to-b from-[#0a0a0a] via-[#111] to-[#0a0a0a] text-white transition-transform duration-300"
+      className="relative py-24 px-6 text-white bg-gradient-to-b from-[#050505] via-[#0a0a0a] to-[#050505] overflow-hidden"
     >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,255,0.1)_0%,transparent_70%)] blur-3xl opacity-20"></div>
+
       <motion.h2
-        className="text-3xl md:text-4xl font-bold text-center mb-12"
+        className="text-3xl md:text-4xl font-bold text-center mb-16"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -64,7 +62,7 @@ const HowItWorks = () => {
       </motion.h2>
 
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-7xl mx-auto"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -74,11 +72,14 @@ const HowItWorks = () => {
           <motion.div
             key={index}
             whileHover={{ scale: 1.05 }}
-            className={`bg-[#1a1a1a] border ${step.border} rounded-xl p-6 shadow-md ${step.glow} transition-all`}
+            transition={{ type: "spring", stiffness: 200, damping: 15 }}
+            className={`relative rounded-2xl p-[2px] bg-gradient-to-br from-${step.color}-500/50 via-${step.color}-600/30 to-transparent shadow-[0_0_20px_-5px_${step.color}-500/40]`}
           >
-            <div className="text-3xl mb-3">{step.icon}</div>
-            <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-            <p className="text-sm text-gray-400">{step.description}</p>
+            <div className="bg-[#111] rounded-2xl p-8 h-full transition-all duration-500 hover:bg-[#181818] hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.1)]">
+              <div className="text-4xl mb-3">{step.icon}</div>
+              <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">{step.description}</p>
+            </div>
           </motion.div>
         ))}
       </motion.div>
